@@ -7,56 +7,51 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link rel="manifest" href="data:application/manifest+json,{
-    'name': 'SMK Yapenda 2 Wiradesa',
-    'short_name': 'Yapenda2',
-    'start_url': '.',
-    'display': 'standalone',
-    'background_color': '#1e40af',
-    'theme_color': '#1e40af',
-    'icons': [{'src': 'https://via.placeholder.com/192?text=Y2', 'sizes': '192x192', 'type': 'image/png'}]
-  }">
+  <link rel="manifest" href='data:application/manifest+json,{
+    "name": "SMK Yapenda 2 Wiradesa",
+    "short_name": "Yapenda2",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#1e40af",
+    "theme_color": "#1e40af",
+    "icons": [{"src": "https://via.placeholder.com/192?text=Y2", "sizes": "192x192", "type": "image/png"}]
+  }'>
   <style>
     body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
-    .page { display: none; opacity: 0; transition: opacity 0.5s ease; }
+    .page { display: none; opacity: 0; transition: opacity 0.4s ease; }
     .page.active { display: block; opacity: 1; }
+    
     .wa-float { 
       position: fixed; bottom: 20px; right: 20px; z-index: 999; 
       animation: floatIn 1s ease-out, pulse 2s infinite 1s; 
     }
     @keyframes floatIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    
     .card { 
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
       transform-style: preserve-3d; perspective: 1000px;
     }
     .card:hover { 
-      transform: translateY(-10px) rotateX(5deg) rotateY(5deg); 
-      box-shadow: 0 25px 50px rgba(0,0,0,0.2); 
+      transform: translateY(-8px); 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
     }
-    #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
-    .typing { overflow: hidden; white-space: nowrap; border-right: 3px solid white; animation: typing 4s steps(40) infinite, blink 0.75s step-end infinite; }
-    @keyframes typing { 0% { width: 0; } 50% { width: 100%; } 100% { width: 0; } }
-    @keyframes blink { from, to { border-color: transparent; } 50% { border-color: white; } }
-    .parallax { background-attachment: fixed; background-position: center; background-size: cover; }
     
-    /* Teks Hero Responsif */
+    #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; pointer-events: none; }
+    
     .hero-text { 
       word-wrap: break-word; 
       overflow-wrap: break-word; 
-      hyphens: auto; 
       font-size: 1.1rem; 
       line-height: 1.6; 
-      max-width: 100%;
     }
     @media (max-width: 640px) {
       .hero-text { font-size: 0.95rem; line-height: 1.5; }
     }
 
-    /* Maps Responsif */
     .map-container {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 1rem;
@@ -72,140 +67,198 @@
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-gray-800">
 
   <!-- Particle Background -->
   <div id="particles-js"></div>
 
-  <!-- Navbar (TANPA LOGO WA) -->
-  <nav class="bg-blue-800 text-white p-4 sticky top-0 z-50 shadow-xl backdrop-blur-sm bg-opacity-90">
-    <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <h1 class="text-xl font-bold">SMK Yapenda 2 Wiradesa</h1>
-      <div class="space-x-4">
-        <a href="#" onclick="showPage('home')" class="hover:text-yellow-300 transition">Home</a>
-        <a href="#" onclick="showPage('profil')" class="hover:text-yellow-300 transition">Profil</a>
-        <a href="#" onclick="showPage('kompetensi keahlian')" class="hover:text-yellow-300 transition">Kompetensi Keahlian</a>
-        <a href="#" onclick="showPage('spmb')" class="hover:text-yellow-300 transition">FORM SPMB</a>
-        <a href="#" onclick="showPage('kontak')" class="hover:text-yellow-300 transition">Kontak</a>
+  <!-- Navbar -->
+  <nav class="bg-blue-800 text-white p-4 sticky top-0 z-50 shadow-xl backdrop-blur-sm bg-opacity-95">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+      <a href="#home" onclick="showPage('home', event)" class="text-xl font-bold tracking-wide">
+        SMK Yapenda 2 Wiradesa
+      </a>
+      <div class="flex flex-wrap justify-center gap-3 sm:gap-5 text-sm sm:text-base font-medium">
+        <a href="#home" onclick="showPage('home', event)" class="hover:text-yellow-300 transition">Home</a>
+        <a href="#profil" onclick="showPage('profil', event)" class="hover:text-yellow-300 transition">Profil</a>
+        <a href="#kompetensi-keahlian" onclick="showPage('kompetensi-keahlian', event)" class="hover:text-yellow-300 transition">Kompetensi Keahlian</a>
+        <a href="#spmb" onclick="showPage('spmb', event)" class="bg-yellow-400 text-blue-900 px-3 py-1 rounded-full font-bold hover:bg-yellow-300 transition">FORM SPMB</a>
+        <a href="#kontak" onclick="showPage('kontak', event)" class="hover:text-yellow-300 transition">Kontak</a>
       </div>
     </div>
   </nav>
 
-  <!-- Floating WA (HANYA DI BAWAH) -->
-  <a href="https://wa.me/6281770284000?text=Halo Admin SMK Yapenda 2, saya mau tanya SPMB" class="wa-float" target="_blank" rel="noopener">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="60" class="rounded-full shadow-2xl">
+  <!-- Floating WA (Langsung buka aplikasi WhatsApp) -->
+  <a href="https://api.whatsapp.com/send?phone=6281770284000&text=Halo%20Admin%20SMK%20Yapenda%202%20Wiradesa%2C%20saya%20mau%20tanya%20info%20SPMB" 
+     class="wa-float" 
+     target="_blank" 
+     rel="noopener noreferrer"
+     title="Chat WhatsApp Admin SPMB">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="60" height="60" alt="WhatsApp Admin" class="rounded-full shadow-2xl">
   </a>
 
   <!-- Home Page -->
-  <section id="home" class="page active max-w-4xl mx-auto p-4">
-    <div class="bg-gradient-to-br from-blue-600 to-green-600 text-white rounded-2xl p-8 text-center shadow-2xl relative overflow-hidden" data-aos="zoom-in">
-      <h1 class="text-4xl font-bold mb-4">Selamat Datang di SMK Yapenda 2 Wiradesa</h1>
-      <p class="hero-text mx-auto max-w-3xl mb-6">
+  <section id="home" class="page active max-w-4xl mx-auto p-4 pt-6">
+    <div class="bg-gradient-to-br from-blue-700 to-green-600 text-white rounded-2xl p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden" data-aos="zoom-in">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">Selamat Datang di SMK Yapenda 2 Wiradesa</h1>
+      <p class="hero-text mx-auto max-w-2xl mb-8 text-blue-50">
         Sekolah Vokasi Unggulan Kab. Pekalongan - Siap Kerja, Siap Kuliah, Siap Wirausaha, Siap Berprestasi!
       </p>
-      <a href="#" onclick="showPage('SPMB')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-100 transform hover:scale-105 transition">Daftar SPMB Sekarang</a>
+      <a href="#spmb" onclick="showPage('spmb', event)" class="inline-block bg-white text-blue-700 px-8 py-3.5 rounded-full font-bold text-lg shadow-lg hover:bg-yellow-300 hover:text-blue-900 transform hover:scale-105 transition cursor-pointer">
+        Daftar SPMB Sekarang
+      </a>
     </div>
+
     <div class="grid md:grid-cols-2 gap-6 mt-8">
-      <div class="bg-white p-6 rounded-xl shadow-lg text-center" data-aos="fade-up" data-aos-delay="200">
-        <h3 class="text-2xl font-bold text-blue-600 mb-2">4 Kompetensi Keahlian Unggulan</h3>
-        <ul class="text-left space-y-1">
+      <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="150">
+        <h3 class="text-xl font-bold text-blue-700 mb-3">4 Kompetensi Keahlian Unggulan</h3>
+        <ul class="text-left space-y-2 text-gray-700">
           <li>• Farmasi Klinis & Komunitas</li>
           <li>• Teknik Pemesinan</li>
           <li>• Teknik Kendaraan Ringan Otomotif</li>
           <li>• Teknik Sepeda Motor</li>
         </ul>
       </div>
-      <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="400">
-        <h3 class="text-2xl font-bold text-green-600 mb-2">Fasilitas Lengkap</h3>
-        <p>Lab Farmasi standar, Apotek Simulasi, Lab. Kecantikan, Bengkel TKR/TSM modern, Workshop Pemesinan CNC, Ruang Multimedia.</p>
+      <div class="bg-white p-6 rounded-xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+        <h3 class="text-xl font-bold text-green-600 mb-3">Fasilitas Lengkap</h3>
+        <p class="text-gray-700 leading-relaxed">
+          Lab Farmasi standar, Apotek Simulasi, Lab. Kecantikan, Bengkel TKR/TSM modern, Workshop Pemesinan CNC, serta Ruang Multimedia.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- Profil Page -->
-  <section id="profil" class="page max-w-4xl mx-auto p-4">
-    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800" data-aos="fade-down">Profil Sekolah</h2>
-    <div class="bg-white rounded-xl shadow-lg p-6 mb-6" data-aos="fade-right">
-      <h3 class="text-xl font-bold mb-3">Sejarah</h3>
-      <p>SMK Yapenda 2 Wiradesa didirikan tahun 1981 berdasarkan Keputusan Bupati Pekalongan No. 421.3/087, di bawah Yayasan Yapenda Prasetiya Bhakti Praja. Berawal sebagai sekolah vokasi lokal, kini menjadi SMK swasta unggulan di Kec. Wiradesa, Kab. Pekalongan, Jawa Tengah, dengan NPSN 20330478 dan akreditasi B.</p>
+  <section id="profil" class="page max-w-4xl mx-auto p-4 pt-6">
+    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800">Profil Sekolah</h2>
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+      <h3 class="text-xl font-bold text-blue-700 mb-2">Sejarah</h3>
+      <p class="leading-relaxed">SMK Yapenda 2 Wiradesa didirikan tahun 1981 berdasarkan Keputusan Bupati Pekalongan No. 421.3/087, di bawah Yayasan Yapenda Prasetiya Bhakti Praja. Berawal sebagai sekolah vokasi lokal, kini menjadi SMK swasta unggulan di Kec. Wiradesa, Kab. Pekalongan, Jawa Tengah, dengan NPSN 20330478 dan akreditasi B.</p>
     </div>
-    <div class="bg-white rounded-xl shadow-lg p-6 mb-6" data-aos="fade-left">
-      <h3 class="text-xl font-bold mb-3">Visi & Misi</h3>
-      <p><strong>Visi:</strong> Menjadi sekolah vokasi berbasis teknologi yang menghasilkan lulusan kompeten, berakhlak mulia, dan berwawasan global.</p>
-      <p><strong>Misi:</strong> 1. Meningkatkan mutu pendidikan vokasi melalui kurikulum berbasis industri. 2. Mengembangkan fasilitas lab dan workshop modern. 3. Membangun kerjasama dengan perusahaan (misal Suzuki, apotek lokal). 4. Menanamkan nilai Pancasila dan kewirausahaan.</p>
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+      <h3 class="text-xl font-bold text-blue-700 mb-2">Visi & Misi</h3>
+      <p class="mb-2"><strong>Visi:</strong> Menjadi sekolah vokasi berbasis teknologi yang menghasilkan lulusan kompeten, berakhlak mulia, dan berwawasan global.</p>
+      <p class="leading-relaxed"><strong>Misi:</strong> 1. Meningkatkan mutu pendidikan vokasi melalui kurikulum berbasis industri. 2. Mengembangkan fasilitas lab dan workshop modern. 3. Membangun kerjasama dengan perusahaan (misal Suzuki, apotek lokal). 4. Menanamkan nilai Pancasila dan kewirausahaan.</p>
     </div>
-    <div class="bg-white rounded-xl shadow-lg p-6" data-aos="zoom-in">
-      <h3 class="text-xl font-bold mb-3">Fasilitas</h3>
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h3 class="text-xl font-bold text-blue-700 mb-2">Fasilitas</h3>
       <ul class="space-y-2">
-        <li>• Lab Farmasi dengan peralatan BPOM</li>
-        <li>• Bengkel Otomotif (TKR & TSM) kerjasama Suzuki</li>
+        <li>• Lab Farmasi dengan peralatan standar BPOM</li>
+        <li>• Bengkel Otomotif (TKR & TSM) kerjasama resmi Suzuki</li>
         <li>• Workshop Teknik Pemesinan CNC</li>
         <li>• Ruang Multimedia & Komputer</li>
-        <li>• Perpustakaan & Olahraga</li>
+        <li>• Perpustakaan & Sarana Olahraga</li>
         <li>• Alamat: Jl. Gumawang Baru No. 1, Wiradesa, Pekalongan | Telp: (0285) 4417091</li>
       </ul>
     </div>
   </section>
 
-  <!-- kompetensi keahlian Page -->
-  <section id="kompetensi keahlian" class="page max-w-4xl mx-auto p-4">
-    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800" data-aos="fade-up">Kompetensi Keahlian</h2>
+  <!-- Kompetensi Keahlian Page -->
+  <section id="kompetensi-keahlian" class="page max-w-4xl mx-auto p-4 pt-6">
+    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800">Kompetensi Keahlian</h2>
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-white rounded-xl shadow-lg p-6 card" data-aos="flip-left">
+      <div class="bg-white rounded-xl shadow-lg p-6 card">
         <h3 class="text-xl font-bold text-green-600 mb-3">Farmasi Klinis & Komunitas</h3>
-        <p>Praktik pengelolaan obat, pelayanan apotek, pembuatan obat dan jamu tradisional dan farmakologi dasar, Pelatihan Ketrampilan Body treatment dan Kecantikan. Kerjasama dengan Rumah Sakit & apotek di wilayah Pekalongan dan sekitarnya. .</p>
-        <div class="parallax h-48 rounded mt-4 bg-cover" style="background-image: url('https://i.imgur.com/farmasi-lab.webp')"></div>
+        <p class="text-sm leading-relaxed mb-4">Praktik pengelolaan obat, pelayanan apotek, pembuatan obat dan jamu tradisional, farmakologi dasar, serta pelatihan keterampilan Body Treatment dan Kecantikan. Bekerja sama dengan Rumah Sakit & apotek di wilayah Pekalongan dan sekitarnya.</p>
+        <div class="h-48 rounded-lg bg-gray-200 bg-cover bg-center" style="background-image: url('https://i.imgur.com/farmasi-lab.webp')"></div>
       </div>
-      <div class="bg-white rounded-xl shadow-lg p-6 card" data-aos="flip-right">
+      <div class="bg-white rounded-xl shadow-lg p-6 card">
         <h3 class="text-xl font-bold text-green-600 mb-3">Teknik Pemesinan</h3>
-        <p>Desain CAD/CAM, bubut, freis, CNC. Kerjasama industri manufaktur. Prospek: Teknisi Mesin (gaji Rp 4-6jt/bln).</p>
-        <div class="parallax h-48 rounded mt-4 bg-cover" style="background-image: url('https://i.imgur.com/pemesinan.webp')"></div>
+        <p class="text-sm leading-relaxed mb-4">Desain CAD/CAM, teknik bubut, freis, dan pemrograman mesin CNC. Bekerja sama dengan industri manufaktur nasional. Prospek kerja: Teknisi Mesin & Operator CNC.</p>
+        <div class="h-48 rounded-lg bg-gray-200 bg-cover bg-center" style="background-image: url('https://i.imgur.com/pemesinan.webp')"></div>
       </div>
-      <div class="bg-white rounded-xl shadow-lg p-6 card" data-aos="flip-left">
+      <div class="bg-white rounded-xl shadow-lg p-6 card">
         <h3 class="text-xl font-bold text-green-600 mb-3">Teknik Kendaraan Ringan Otomotif (TKR)</h3>
-        <p>Diagnosis & perbaikan mobil, sistem rem, transmisi. Sekolah Binaan Bengkel resmi Suzuki. Prospek: Mekanik Bengkel .</p>
-        <div class="parallax h-48 rounded mt-4 bg-cover" style="background-image: url('https://i.imgur.com/tkr-bengkel.webp')"></div>
+        <p class="text-sm leading-relaxed mb-4">Diagnosis & perbaikan mesin mobil, sistem kelistrikan, rem, dan transmisi. Sekolah Binaan Bengkel resmi Suzuki. Prospek kerja: Mekanik Bengkel Resmi & Industri Otomotif.</p>
+        <div class="h-48 rounded-lg bg-gray-200 bg-cover bg-center" style="background-image: url('https://i.imgur.com/tkr-bengkel.webp')"></div>
       </div>
-      <div class="bg-white rounded-xl shadow-lg p-6 card" data-aos="flip-right">
+      <div class="bg-white rounded-xl shadow-lg p-6 card">
         <h3 class="text-xl font-bold text-green-600 mb-3">Teknik Sepeda Motor (TSM)</h3>
-        <p>Perbaikan motor, tuning, skill contest. Prospek: Teknisi Motor .</p>
-        <div class="parallax h-48 rounded mt-4 bg-cover" style="background-image: url('https://i.imgur.com/suzuki-skill.webp')"></div>
+        <p class="text-sm leading-relaxed mb-4">Perawatan dan perbaikan sepeda motor injeksi maupun konvensional, tuning mesin, dan persiapan skill contest. Prospek kerja: Teknisi Bengkel Motor & Wirausaha Bengkel.</p>
+        <div class="h-48 rounded-lg bg-gray-200 bg-cover bg-center" style="background-image: url('https://i.imgur.com/suzuki-skill.webp')"></div>
       </div>
     </div>
   </section>
 
-  <!-- SPMB Page -->
-  <section id="ppdb" class="page max-w-md mx-auto p-4">
-    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800" data-aos="zoom-in">Formulir Pendaftaran Siswa Baru</h2>
-    <form id="ppdbForm" class="bg-white rounded-xl shadow-2xl p-6 space-y-4" data-aos="fade-up">
-      <input type="text" name="nama" placeholder="Nama Lengkap" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-      <input type="text" name="nisn" placeholder="Alamat Rumah (lengkap RT/RW)" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-      <input type="text" name="nisn" placeholder="Asal Sekolah" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-      <select name="kompetensi keahlian" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-        <option value="">Pilih Kompetensi keahlian</option>
-        <option>Farmasi Klinis & Komunitas</option>
-        <option>Teknik Pemesinan</option>
-        <option>Teknik Kendaraan Ringan Otomotif</option>
-        <option>Teknik Sepeda Motor</option>
-      </select>
-      <input type="tel" name="wa" placeholder="No WA Orang Tua (628...)" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
-      <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg font-bold hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition">Kirim Pendaftaran</button>
+  <!-- SPMB Page (Formulir Pendaftaran Lengkap) -->
+  <section id="spmb" class="page max-w-lg mx-auto p-4 pt-6">
+    <h2 class="text-3xl font-bold text-center mb-2 text-blue-800">Formulir Pendaftaran Siswa Baru</h2>
+    <p class="text-center text-gray-600 text-sm mb-6">Lengkapi seluruh data calon siswa dan orang tua/wali di bawah ini.</p>
+    
+    <form id="spmbForm" class="bg-white rounded-xl shadow-2xl p-6 space-y-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1">Nama Lengkap Siswa <span class="text-red-500">*</span></label>
+        <input type="text" name="nama" placeholder="Contoh: Ahmad Fauzi" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Alamat Lengkap <span class="text-red-500">*</span></label>
+        <input type="text" name="alamat" placeholder="Desa/Kelurahan, RT/RW, Kecamatan" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Asal Sekolah (SMP/MTs) <span class="text-red-500">*</span></label>
+        <input type="text" name="asal_sekolah" placeholder="Contoh: SMP N 1 Wiradesa" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Kompetensi Keahlian <span class="text-red-500">*</span></label>
+        <select name="jurusan" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition bg-white">
+          <option value="">-- Pilih Kompetensi Keahlian --</option>
+          <option value="Farmasi Klinis & Komunitas">Farmasi Klinis & Komunitas</option>
+          <option value="Teknik Pemesinan">Teknik Pemesinan</option>
+          <option value="Teknik Kendaraan Ringan Otomotif">Teknik Kendaraan Ringan Otomotif</option>
+          <option value="Teknik Sepeda Motor">Teknik Sepeda Motor</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">No. HP/WA Siswa <span class="text-red-500">*</span></label>
+        <input type="tel" name="wa_siswa" placeholder="Contoh: 081234567890" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition">
+      </div>
+
+      <hr class="border-gray-200 my-2">
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Nama Orangtua / Wali <span class="text-red-500">*</span></label>
+        <input type="text" name="nama_ortu" placeholder="Nama Ayah / Ibu / Wali" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">No. HP/WA Orangtua / Wali <span class="text-red-500">*</span></label>
+        <input type="tel" name="wa_ortu" placeholder="Contoh: 085612345678" required class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition">
+      </div>
+
+      <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3.5 rounded-lg font-bold text-lg shadow-md hover:from-green-600 hover:to-green-700 transform hover:scale-102 transition">
+        Kirim Pendaftaran
+      </button>
     </form>
   </section>
 
   <!-- Kontak Page -->
-  <section id="kontak" class="page max-w-4xl mx-auto p-4">
-    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800" data-aos="fade-down">Hubungi Kami</h2>
-    <div class="bg-white rounded-xl shadow-2xl p-6 text-center" data-aos="zoom-in">
-      <p class="text-lg mb-4">Jl. Gumawang Baru No. 1, Kampil, Kec. Wiradesa, Kab. Pekalongan, Jawa Tengah 51162</p>
-      <p class="text-lg mb-2">Telp: (0285) 4417091 | Email: smk_ypd2wrd@yahoo.com</p>
-      <p class="text-lg">WA: <a href="https://wa.me/6281770284000" class="text-blue-600 font-bold hover:text-blue-800">0817-7028-4000</a></p>
+  <section id="kontak" class="page max-w-4xl mx-auto p-4 pt-6">
+    <h2 class="text-3xl font-bold text-center mb-6 text-blue-800">Hubungi Kami</h2>
+    <div class="bg-white rounded-xl shadow-2xl p-6 text-center">
+      <p class="text-lg mb-3 font-medium">Jl. Gumawang Baru No. 1, Kampil, Kec. Wiradesa, Kab. Pekalongan, Jawa Tengah 51162</p>
+      <p class="text-base mb-2">Telp: (0285) 4417091 | Email: smk_ypd2wrd@yahoo.com</p>
+      <p class="text-lg mb-4">
+        WhatsApp Admin: 
+        <a href="https://api.whatsapp.com/send?phone=6281770284000&text=Halo%20Admin%20SMK%20Yapenda%202%20Wiradesa%2C%20saya%20mau%20tanya%20info%20SPMB" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="inline-block bg-green-500 text-white px-4 py-1.5 rounded-full font-bold hover:bg-green-600 transition ml-1">
+          Chat 0817-7028-4000
+        </a>
+      </p>
       <div class="mt-6 map-container">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.573873655795!2d109.625451614753!3d-6.983582994958346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7021c5f0f0f0f1%3A0x40233f0f0f0f0f0f!2sSMK%20Yapenda%202%20Wiradesa!5e0!3m2!1sid!2sid!4v1690000000000" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.921660601624!2d109.61430957499644!3d-6.8999724930993676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7027a10fc44a2f%3A0x9972d0c9edaf7a0c!2sSMK%20Yapenda%202%20Wiradesa!5e0!3m2!1sid!2sid!4v1795410134983!5m2!1sid!2sid" 
+          width="600" 
+          height="450" 
+          style="border:0;" 
           allowfullscreen="" 
           loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade">
+          referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
     </div>
@@ -218,43 +271,104 @@
   <!-- Init -->
   <script>
     // Particles
-    particlesJS('particles-js', {
-      particles: { number: { value: 80 }, color: { value: '#ffffff' }, shape: { type: 'circle' }, opacity: { value: 0.5 }, size: { value: 3 }, line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.2, width: 1 }, move: { enable: true, speed: 2 } },
-      interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'repulse' } } },
-      retina_detect: true
-    });
-
-    // AOS
-    AOS.init({ duration: 1000, once: true });
-
-    // Page Routing
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const page = document.getElementById(pageId);
-      page.classList.add('active');
-      window.scrollTo(0, 0);
-      AOS.refresh();
+    if (typeof particlesJS !== 'undefined') {
+      particlesJS('particles-js', {
+        particles: { 
+          number: { value: 50 }, 
+          color: { value: '#3b82f6' }, 
+          shape: { type: 'circle' }, 
+          opacity: { value: 0.2 }, 
+          size: { value: 3 }, 
+          line_linked: { enable: true, distance: 150, color: '#3b82f6', opacity: 0.15, width: 1 }, 
+          move: { enable: true, speed: 1.5 } 
+        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false } } },
+        retina_detect: true
+      });
     }
 
-    // Form Submit
-    document.getElementById('ppdbForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = [new Date().toLocaleString('id-ID'), ...Array.from(formData.values())];
-      const btn = e.target.querySelector('button');
-      btn.innerHTML = 'Mengirim...'; btn.disabled = true;
-      try {
-        await fetch('https://script.google.com/macros/s/AKfycbw0fHMtkJnlEktzn7Vc-mD5TBztlFcsapbWScq9OjLVKMbJ_ARuv47zhu3pGdyMshbn/exec', {
-          method: 'POST',
-          body: JSON.stringify([data])
-        });
-        alert('Pendaftaran berhasil! Kami hubungi via WA.');
-        e.target.reset();
-      } catch {
-        alert('Gagal kirim. Coba lagi atau WA admin.');
+    // AOS
+    AOS.init({ duration: 800, once: true });
+
+    // Navigasi Halaman
+    function showPage(pageId, event) {
+      if (event) event.preventDefault();
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => AOS.refresh(), 100);
       }
-      btn.innerHTML = 'Kirim Pendaftaran'; btn.disabled = false;
+    }
+
+    // Form Submit ke Google Sheets + Konfirmasi ke Aplikasi WA
+    document.getElementById('spmbForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      
+      // Format Tgl, Jam
+      const now = new Date();
+      const tglJam = now.toLocaleDateString('id-ID') + ' ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      const nama = formData.get('nama');
+      const alamat = formData.get('alamat');
+      const asalSekolah = formData.get('asal_sekolah');
+      const jurusan = formData.get('jurusan');
+      const waSiswa = formData.get('wa_siswa');
+      const namaOrtu = formData.get('nama_ortu');
+      const waOrtu = formData.get('wa_ortu');
+
+      // Urutan array persis sesuai kolom Google Sheets:
+      // Tgl, Jam | Nama | Alamat | Asal sekolah | Kompetensi Keahlian | No. Hp/WA Siswa | Nama Orangtua/Wali | No HP/WA orangtua/Wali
+      const dataRow = [
+        tglJam,
+        nama,
+        alamat,
+        asalSekolah,
+        jurusan,
+        waSiswa,
+        namaOrtu,
+        waOrtu
+      ];
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.innerHTML = 'Mengirim Pendaftaran...';
+      btn.disabled = true;
+
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyC0fyNrHSwlppfIv_oQqGjnVwXNy1Gp8MzJEw8mvjBLsfw5lhSPJeWQwuMdv_XJWcd/exec';
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify([dataRow])
+        });
+
+        alert('Alhamdulillah, pendaftaran berhasil terkirim! Klik OK untuk konfirmasi ke WhatsApp Panitia SPMB.');
+        
+        // Otomatis buka aplikasi WhatsApp dengan format pesan rapi
+        const pesanWA = `Halo Admin SPMB SMK Yapenda 2 Wiradesa, saya telah mengisi formulir pendaftaran online:%0A%0A` +
+          `*Nama Siswa:* ${encodeURIComponent(nama)}%0A` +
+          `*Asal Sekolah:* ${encodeURIComponent(asalSekolah)}%0A` +
+          `*Kompetensi Keahlian:* ${encodeURIComponent(jurusan)}%0A` +
+          `*Alamat:* ${encodeURIComponent(alamat)}%0A` +
+          `*No. HP/WA Siswa:* ${encodeURIComponent(waSiswa)}%0A` +
+          `*Nama Orangtua/Wali:* ${encodeURIComponent(namaOrtu)}%0A` +
+          `*No. HP/WA Orangtua/Wali:* ${encodeURIComponent(waOrtu)}`;
+          
+        window.open(`https://api.whatsapp.com/send?phone=6281770284000&text=${pesanWA}`, '_blank');
+        
+        form.reset();
+      } catch (err) {
+        alert('Terjadi gangguan jaringan. Silakan klik tombol WhatsApp di pojok kanan bawah untuk mendaftar langsung.');
+      } finally {
+        btn.innerHTML = 'Kirim Pendaftaran';
+        btn.disabled = false;
+      }
     });
   </script>
 </body>
-                                                                                                              </html>
+</html>
